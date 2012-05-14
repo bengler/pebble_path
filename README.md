@@ -2,6 +2,23 @@
 
 Provides searchable, parseable pebbles-compliant UID paths, e.g. (such as `a.b.*`) for Active Record models.
 
+## Requirements
+
+Requires ActiveModel. The target class (the one that will contain the `path` property) needs to have fields in the DB for:
+
+```
+label_0
+label_1
+label_2
+label_3
+label_4
+label_5
+label_6
+label_7
+label_8
+label_9
+```
+
 ## Installation
 
 Add this line to your application's Gemfile:
