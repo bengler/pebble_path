@@ -1,6 +1,15 @@
 require 'pebble_path'
 
 class Thing
+  def self.scope(*attrs)
+  end
+  def self.after_initialize(*attrs)
+  end
+  def self.validates_presence_of(*attrs)
+  end
+  def self.validate(*attrs)
+  end
+
   (0..9).each do |i|
     attr_accessor "label_#{i}".to_sym
   end
@@ -25,6 +34,11 @@ describe PebblePath do
     it "accepts a string" do
       subject.path = "a.b.c"
       "#{subject.path}".should eq("a.b.c")
+    end
+
+    it "doesn't do weird stuff" do
+      subject.path = [nil, 'a']
+      "#{subject.path}".should eq("")
     end
 
     specify { subject.path.map{|label| label + label}.should eq %w(aa bb cc dd ee) }
@@ -62,6 +76,23 @@ describe PebblePath do
       it "overwrites #{attribute}" do
         subject.send(attribute).should be_nil
       end
+    end
+  end
+
+  it "initializes path from label" do
+    subject.path = []
+    subject.label_0 = 'a'
+    subject.label_1 = 'b'
+    subject.label_2 = 'c'
+    subject.path.to_s.should eq('')
+    subject.initialize_path
+    subject.path.to_s.should eq('a.b.c')
+  end
+
+  describe "no stray labels" do
+    it "stops setting labels when it reaches a nil" do
+      subject.path = ['a', 'b', nil, 'd']
+      subject.path.to_s.should eq('a.b')
     end
   end
 end

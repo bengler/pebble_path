@@ -30,7 +30,19 @@ module PebblePath
 
     def resolve(positions)
       positions = positions.split('.') if positions.is_a?(String)
-      (0...MAX_DEPTH).map { |i| positions[i] }
+      positions = truncate_invalid(positions)
+      (0...MAX_DEPTH).map do |i|
+        positions[i]
+      end
+    end
+
+    def truncate_invalid(positions)
+      labels = []
+      (0...MAX_DEPTH).each do |i|
+        break if positions[i].nil?
+        labels << positions[i]
+      end
+      labels
     end
 
     class << self
