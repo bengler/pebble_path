@@ -47,7 +47,7 @@ module PebblePath
 
     class << self
 
-      def detect(path)
+      def to_conditions(path)
         unless Pebblebed::Uid.valid_path?(path)
           raise ArgumentError.new("Wildcards terminate the path. Invalid path: #{path}")
         end

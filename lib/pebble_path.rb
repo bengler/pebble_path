@@ -6,14 +6,14 @@ module PebblePath
     Positions::MAX_DEPTH
   end
 
-  def self.detect(paths)
-    Positions.detect(paths)
+  def self.to_conditions(paths)
+    Positions.to_conditions(paths)
   end
 
   def self.included(base)
     base.class_eval do
       scope :by_path, lambda { |path|
-        where Positions.detect(path)
+        where Positions.to_conditions(path)
       }
 
       validates_presence_of :label_0

@@ -18,26 +18,26 @@ describe PebblePath::Positions do
     }
   end
 
-  describe "#detect" do
+  describe "#to_conditions" do
 
     specify do
-      subject.detect("a.b.c.d.e.f.g.h.i.j").should eq(full_path)
+      subject.to_conditions("a.b.c.d.e.f.g.h.i.j").should eq(full_path)
     end
 
     specify do
-      subject.detect("a.b.c").should eq({:label_0=>"a", :label_1=>"b", :label_2=>"c", :label_3=>nil})
+      subject.to_conditions("a.b.c").should eq({:label_0=>"a", :label_1=>"b", :label_2=>"c", :label_3=>nil})
     end
 
     specify do
-      subject.detect("a.b.*").should eq({:label_0=>"a", :label_1=>"b"})
+      subject.to_conditions("a.b.*").should eq({:label_0=>"a", :label_1=>"b"})
     end
 
     specify do
-      subject.detect("a.^b.c").should eq({:label_0=>"a", :label_1=>["b", nil], :label_2=>["c", nil], :label_3=>nil})
+      subject.to_conditions("a.^b.c").should eq({:label_0=>"a", :label_1=>["b", nil], :label_2=>["c", nil], :label_3=>nil})
     end
 
     specify do
-      subject.detect("a.b|c.d").should eq({:label_0=>"a", :label_1=>["b", "c"], :label_2=>"d", :label_3=>nil})
+      subject.to_conditions("a.b|c.d").should eq({:label_0=>"a", :label_1=>["b", "c"], :label_2=>"d", :label_3=>nil})
     end
 
   end
