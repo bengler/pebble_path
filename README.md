@@ -33,9 +33,31 @@ Or install it yourself as:
 
     $ gem install pebble_path
 
+Create a migration for the table that you want to put the paths on, e.g.
+
+    def self.up
+      labels = (0..9).map { |i| "label_#{i}".to_sym }
+
+      create_table :locations do |t|
+        labels.each do |label|
+          t.text label
+        end
+        t.timestamps
+      end
+
+      add_index :locations, labels, :unique => true, :name => 'index_locations_on_labels'
+    end
+
+
 ## Usage
 
-TODO: Write usage instructions here
+Include the `PebblePath` module in the `ActiveRecord` model that has the labels
+
+```
+class Location < ActiveRecord::Base
+  include PebblePath
+end
+```
 
 ## Contributing
 
