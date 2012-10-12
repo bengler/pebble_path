@@ -1,4 +1,5 @@
 require 'pebblebed'
+require 'pebbles-uid'
 
 module PebblePath
   class Positions
@@ -52,30 +53,11 @@ module PebblePath
           raise ArgumentError.new("Wildcards terminate the path. Invalid path: #{path}")
         end
 
-        labels = path.split('.')
-        # In a Pebblebed::Uid::WildcardPath, anything after '^' is optional.
-        optional_part = false
-
-        labels.map! do |label|
-          if label =~ /^\^/
-            label.gsub!(/^\^/, '')
-            optional_part = true
-          end
-
-          result = label.include?('|') ? label.split('|') : label
-          result = [label, nil].flatten if optional_part
-          result
-        end
-
-        result = {}
-        (0...MAX_DEPTH).map do |index|
-          break if labels[index] == '*'
-          result[:"label_#{index}"] = labels[index]
-          break if labels[index].nil?
-        end
-        result
+        labels = Pebbles::Uid::Labels.new(path, :name => 'label')
+        options = {:stop => nil} unless MAX_DEPTH == labels.size
+        options ||= {}
+        labels.to_hash options
       end
-
     end
   end
 
