@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+require File.expand_path('../lib/pebble_path/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Katrina Owen"]
@@ -12,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "pebble_path"
   gem.require_paths = ["lib"]
-  gem.version       = "0.0.3"
+  gem.version       = PebblePath::VERSION
 
   gem.add_development_dependency 'rspec'
   gem.add_dependency 'pebbles-uid', '>=0.0.3'
