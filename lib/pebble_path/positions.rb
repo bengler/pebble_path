@@ -53,10 +53,8 @@ module PebblePath
           raise ArgumentError.new("Wildcards terminate the path. Invalid path: #{path}")
         end
 
-        labels = Pebbles::Uid::Labels.new(path, :name => 'label')
-        options = {:stop => nil} unless MAX_DEPTH == labels.size
-        options ||= {}
-        labels.to_hash options
+        labels = Pebbles::Uid::Labels.new(path, :name => 'label', :max_depth => MAX_DEPTH, :stop => nil)
+        labels.to_hash
       end
     end
   end
