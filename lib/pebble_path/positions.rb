@@ -1,5 +1,5 @@
-require 'pebblebed'
 require 'pebbles-uid'
+require 'pebbles-uid/wildcard'
 
 module PebblePath
   class Positions
@@ -49,7 +49,7 @@ module PebblePath
     class << self
 
       def to_conditions(path)
-        unless Pebblebed::Uid.valid_path?(path)
+        unless Pebbles::Uid::Wildcard.valid?(path)
           raise ArgumentError.new("Wildcards terminate the path. Invalid path: #{path}")
         end
 

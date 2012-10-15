@@ -17,5 +17,4 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency 'rspec'
   gem.add_dependency 'pebbles-uid', '>=0.0.5'
-  gem.add_dependency 'pebblebed', '>=0.0.15'
 end

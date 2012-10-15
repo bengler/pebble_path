@@ -22,7 +22,7 @@ module PebblePath
       after_initialize :initialize_path
 
       def self.declare!(path)
-        raise ArgumentError, "Path must be valid" unless Pebblebed::Uid.valid_path?(path)
+        raise ArgumentError, "Path must be valid" unless Pebbles::Uid.valid_path?(path)
         attributes = PebblePath.to_conditions(path)
         path = self.where(attributes).first
         path ||= self.create!(attributes)
@@ -50,7 +50,7 @@ module PebblePath
   end
 
   def must_be_valid_uid_path
-    unless Pebblebed::Uid.valid_path?(self.path.to_s)
+    unless Pebbles::Uid.valid_path?(self.path.to_s)
       errors.add(:base, "Location path '#{self.path.to_s}' is invalid.")
     end
   end
